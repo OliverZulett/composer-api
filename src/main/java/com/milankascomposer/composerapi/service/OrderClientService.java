@@ -33,7 +33,7 @@ public class OrderClientService {
     }
 
     public Mono<List<OrderDTO>> getOrdersByUserId(UUID userId) {
-        Mono<UserDTO> user = this.userClientService.getUserById(userId);
+        
         return this.orderClient
                 .get()
                 .uri("/v1/orders")
