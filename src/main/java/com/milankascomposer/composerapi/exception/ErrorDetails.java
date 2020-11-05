@@ -1,4 +1,4 @@
-package com.milankas.training.exception;
+package com.milankascomposer.composerapi.exception;
 
 import java.time.ZoneId;
 import java.time.ZonedDateTime;

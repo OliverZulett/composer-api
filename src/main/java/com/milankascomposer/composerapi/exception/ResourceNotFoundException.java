@@ -1,4 +1,4 @@
-package com.milankas.training.exception;
+package com.milankascomposer.composerapi.exception;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.ResponseStatus;

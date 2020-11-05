@@ -2,6 +2,7 @@ package com.milankascomposer.composerapi.service;
 
 import com.milankascomposer.composerapi.dto.LineItemDTO;
 import com.milankascomposer.composerapi.dto.OrderDTO;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunctions;
@@ -16,9 +17,9 @@ public class OrderClientService {
 
     private final WebClient orderClient;
 
-    public OrderClientService(WebClient.Builder webClientBuilder) {
+    public OrderClientService(@Value("${order.api.uri}") String baseUrl, WebClient.Builder webClientBuilder) {
         this.orderClient = webClientBuilder
-                .baseUrl("http://localhost:8091")
+                .baseUrl(baseUrl)
                 .filter(ExchangeFilterFunctions.basicAuthentication("orderAdmin", "orderAdmin"))
                 .build();
     }

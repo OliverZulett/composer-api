@@ -2,10 +2,14 @@ package com.milankascomposer.composerapi.service;
 
 import com.milankascomposer.composerapi.dto.LineItemDTO;
 import com.milankascomposer.composerapi.dto.ProductDTO;
+import com.milankascomposer.composerapi.exception.ResourceNotFoundException;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.ExchangeFilterFunctions;
 import org.springframework.web.reactive.function.client.WebClient;
+import reactor.core.publisher.Mono;
 
 import java.util.List;
 import java.util.UUID;
@@ -16,9 +20,9 @@ public class ProductClientService {
 
     private final WebClient productClient;
 
-    public ProductClientService(WebClient.Builder webClientBuilder) {
+    public ProductClientService(@Value("${product.api.uri}") String baseUrl, WebClient.Builder webClientBuilder) {
         this.productClient = webClientBuilder
-                .baseUrl("http://localhost:8090")
+                .baseUrl(baseUrl)
                 .filter(ExchangeFilterFunctions.basicAuthentication("productAdmin", "productAdmin"))
                 .build();
     }
@@ -28,6 +32,10 @@ public class ProductClientService {
                 .get()
                 .uri("/v1/products/{id}", id)
                 .retrieve()
+                .onStatus(
+                        HttpStatus::is4xxClientError,
+                        clientResponse -> Mono.error(new ResourceNotFoundException("Product not found for id: " + id))
+                )
                 .bodyToMono(ProductDTO.class)
                 .block();
     }

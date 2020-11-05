@@ -9,6 +9,7 @@ import com.milankascomposer.composerapi.service.ProductClientService;
 import com.milankascomposer.composerapi.service.UserClientService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -30,17 +31,17 @@ public class UserController {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<OrderDTO> getOrdersByUserId(@Valid @PathVariable(value = "userId") UUID userId) {
-        UserDTO userStored = this.userClientService.getUserById(userId);
-        return this.orderClientService.getOrdersByUserId(userStored.getUserId());
+        UserDTO storedUser = this.userClientService.getUserById(userId);
+        return this.orderClientService.getOrdersByUserId(storedUser.getUserId());
     }
 
     @GetMapping("/{userId}/products")
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<ProductDTO> getProductsByUserId(@Valid @PathVariable(value = "userId") UUID userId) {
-        UserDTO userStored = this.userClientService.getUserById(userId);
-        List<LineItemDTO> lineItemsStored = this.orderClientService.getLineItemsFromOrdersByUserId(userStored.getUserId());
-        return this.productClientService.getProductsFromLineItemsList(lineItemsStored);
+        UserDTO storedUser = this.userClientService.getUserById(userId);
+        List<LineItemDTO> storedLineItems = this.orderClientService.getLineItemsFromOrdersByUserId(storedUser.getUserId());
+        return this.productClientService.getProductsFromLineItemsList(storedLineItems);
     }
 
 }

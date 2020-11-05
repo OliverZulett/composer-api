@@ -25,8 +25,8 @@ public class CompanyController {
     @ResponseStatus(value = HttpStatus.OK)
     @ResponseBody
     public List<ProductDTO> getProductsByCompanyId(@Valid @PathVariable(value = "companyId") UUID companyId) {
-        CompanyDTO companyStored = this.companyClientService.getCompanyById(companyId);
-        return this.productClientService.getProductsByCompanyId(companyStored.getCompanyId());
+        CompanyDTO storedCompany = this.companyClientService.getCompanyById(companyId);
+        return this.productClientService.getProductsByCompanyId(storedCompany.getCompanyId());
     }
 
 }
