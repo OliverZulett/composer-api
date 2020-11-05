@@ -6,8 +6,8 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 @SpringBootApplication
 public class ComposerApiApplication {
 
-	public static void main(String[] args) {
-		SpringApplication.run(ComposerApiApplication.class, args);
-	}
+    public static void main(String[] args) {
+        SpringApplication.run(ComposerApiApplication.class, args);
+    }
 
 }

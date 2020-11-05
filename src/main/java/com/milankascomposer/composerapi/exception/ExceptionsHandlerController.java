@@ -1,18 +1,6 @@
 package com.milankascomposer.composerapi.exception;
 
-import com.fasterxml.jackson.core.JsonParseException;
-import com.fasterxml.jackson.databind.JsonMappingException;
-import com.milankas.training.exception.ErrorDetails;
-import com.milankas.training.exception.PasswordExistingException;
-import com.milankas.training.exception.ResourceNotFoundException;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
-import org.springframework.web.bind.annotation.ExceptionHandler;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
-
-import java.util.Objects;
 
 @ControllerAdvice
 public class ExceptionsHandlerController {
